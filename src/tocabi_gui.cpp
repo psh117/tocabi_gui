@@ -71,6 +71,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         sysstatesub = nh_.subscribe("/tocabi/systemstate", 1000, &TocabiGui::sysstateCallback, this);
         com_pub = nh_.advertise<std_msgs::String>("/tocabi/command", 100);
         guilogsub = nh_.subscribe("/tocabi/guilog", 1000, &TocabiGui::guiLogCallback, this);
+        guilogpub = nh_.advertise<std_msgs::String>("/tocabi/guilog", 100);
         gain_pub = nh_.advertise<std_msgs::Float32MultiArray>("/tocabi/gain_command", 100);
         imusub = nh_.subscribe("/tocabi/imu", 100, &TocabiGui::imuCallback, this);
         task_pub = nh_.advertise<tocabi_msgs::TaskCommand>("/tocabi/taskcommand", 100);
@@ -284,6 +285,8 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         connect(ui_.walkingstart_btn, SIGNAL(pressed()), this, SLOT(walkingstartbtncb()));
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
+
+        connect(ui_.chat_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
 
         //connect(ui_.)
 
@@ -970,6 +973,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         com_pub.publish(com_msg);
     }
 
+    void TocabiGui::chatbox()
+    {
+        gui_msg.data = ui_.chat_box->text().toUtf8().constData();
+        guilogpub.publish(gui_msg);
+    }
+
     void TocabiGui::timercb(const std_msgs::Float32ConstPtr &msg)
     {
         robot_time = msg->data;
@@ -1042,7 +1051,12 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("EL"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
             }
-            else
+            else if (num_safety == 9)
+            {
+                safetylabels[mo2g[i]]->setText(QString::fromUtf8("NO"));
+                safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : white; }");
+            }
+            else 
             {
                 safetylabels[mo2g[i]]->setText(QString::fromUtf8("??"));
                 safetylabels[mo2g[i]]->setStyleSheet("QLabel { background-color : red ; color : white; }");
@@ -1072,6 +1086,13 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             {
                 ecatlabels[mo2g[i]]->setText(QString::fromUtf8("4"));
                 ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+            else
+            {
+                ecatlabels[mo2g[i]]->setText(QString::fromUtf8("??"));
+                ecatlabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
+            
+
             }
 
             if (num_zp == 0) //zp started
@@ -1103,6 +1124,11 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
             {
                 zplabels[mo2g[i]]->setText(QString::fromUtf8("OK"));
                 zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : rgb(138, 226, 52) ; color : black; }");
+            }
+            else
+            {
+                zplabels[mo2g[i]]->setText(QString::fromUtf8("??"));
+                zplabels[mo2g[i]]->setStyleSheet("QLabel { background-color : yellow ; color : black; }");
             }
         }
     }

@@ -194,6 +194,8 @@ namespace tocabi_gui
 
         virtual void sendCommand(QString str);
 
+        virtual void chatbox();
+
         //dg
         // virtual void walkingspeedcb(int value);
         // virtual void walkingdurationcb(int value);
@@ -256,6 +258,8 @@ namespace tocabi_gui
         ros::Subscriber jointsub;
         ros::Subscriber pointsub;
         ros::Subscriber guilogsub;
+        ros::Publisher guilogpub;
+        std_msgs::String gui_msg;
         ros::Publisher gain_pub;
         std_msgs::Float32MultiArray gain_msg;
         ros::Publisher com_pub;

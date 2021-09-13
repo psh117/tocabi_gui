@@ -103,7 +103,7 @@ STOP</string>
     <enum>QFrame::StyledPanel</enum>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="ECAT">
     <widget class="QLabel" name="label_33">
@@ -4973,7 +4973,7 @@ F3 : HARD DAMPING(E2)</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>200</width>
+        <width>244</width>
         <height>101</height>
        </rect>
       </property>
@@ -5149,7 +5149,7 @@ F3 : HARD DAMPING(E2)</string>
      <x>1180</x>
      <y>520</y>
      <width>411</width>
-     <height>461</height>
+     <height>421</height>
     </rect>
    </property>
    <property name="readOnly">
@@ -5814,6 +5814,32 @@ F3 : HARD DAMPING(E2)</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="chat_box">
+   <property name="geometry">
+    <rect>
+     <x>1180</x>
+     <y>950</y>
+     <width>281</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="chat_btn">
+   <property name="geometry">
+    <rect>
+     <x>1470</x>
+     <y>950</y>
+     <width>121</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send Chat</string>
    </property>
   </widget>
  </widget>
