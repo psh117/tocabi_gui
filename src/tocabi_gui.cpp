@@ -286,7 +286,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         connect(ui_.task_mode, SIGNAL(currentIndexChanged(int)), this, SLOT(taskmodecb(int)));
 
-        connect(ui_.chat_btn, SIGNAL(pressed()), this, SLOT(commandpbtn()));
+        connect(ui_.chat_btn, SIGNAL(pressed()), this, SLOT(chatbox()));
 
         //connect(ui_.)
 
@@ -975,6 +975,7 @@ void MyQGraphicsScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     void TocabiGui::chatbox()
     {
+        std::cout<<ui_.chat_box->text().toUtf8().constData()<<std::endl;
         gui_msg.data = ui_.chat_box->text().toUtf8().constData();
         guilogpub.publish(gui_msg);
     }
